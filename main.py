@@ -178,17 +178,24 @@ class Monitor(object):
             self.storage_path = storage_path
         
     def start(self):
-        self.update_job_list()
-        self.update_free_space()
-
         while True:
-            self.update_job_list()
-            self.check_deletion()
-            time.sleep(10)
-            self.update_job_list()
-            self.update_free_space()
-            self.check_addition()
-            time.sleep(self.refresh_sec - 10 + self._judger_next_delay())
+            try:
+                self.update_job_list()
+                self.update_free_space()
+
+                while True:
+                    self.update_job_list()
+                    self.check_deletion()
+                    time.sleep(10)
+                    self.update_job_list()
+                    self.update_free_space()
+                    self.check_addition()
+                    time.sleep(self.refresh_sec - 10 + self._judger_next_delay())
+            except Exception as e:
+                logger.error(f"caught error: {e=}, {type(e)=}")
+                time.sleep(300)
+
+
 
     def update_job_list(self):
         """
