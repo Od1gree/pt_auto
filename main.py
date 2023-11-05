@@ -410,7 +410,7 @@ class Monitor(object):
     
 if __name__ == '__main__':
     m = Monitor(raw_run=False, storage_path="/data", download_path='/downloads/', 
-                storage_total_limit=200, storage_auto_limit=200,
+                storage_total_limit=200, storage_auto_limit=200, min_up_ratio=1.3,min_seed_sec=24*60*60,
                 qb_host=os.getenv("PYAUTO_HOST",default="localhost"),
                 qb_port=os.getenv("PYAUTO_PORT",default=8080),
                 qb_username=os.getenv("PYAUTO_UN",default="admin"),
